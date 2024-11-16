@@ -18,6 +18,7 @@ const auth = (...roles: string[]) => {
       if (roles?.length > 0 && !roles.includes(verifiedUser?.role)) {
         throw new AppError(httpStatus.FORBIDDEN, "Forbidden!");
       }
+      req.user = verifiedUser;
       next();
     } catch (error) {
       next(error);
