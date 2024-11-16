@@ -2,6 +2,7 @@ import prisma from "../../../helpers/prisma";
 import bcrypt from "bcrypt";
 import { jwtHelper } from "../../../helpers/jwtHelper";
 import { UserStatus } from "@prisma/client";
+import config from "../../../config";
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const user = await prisma.user.findUniqueOrThrow({
@@ -20,13 +21,13 @@ const loginUser = async (payload: { email: string; password: string }) => {
   }
   const accessToken = jwtHelper.generateToken(
     { email: user.email, role: user.role },
-    "abcdef",
-    "15m"
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string
   );
   const refreshToken = jwtHelper.generateToken(
     { email: user.email, role: user.role },
-    "abcdefgh",
-    "30d"
+    config.jwt_refresh_secret as string,
+    config.jtw_refresh_expires_in as string
   );
 
   return {
@@ -51,8 +52,8 @@ const refreshToken = async (token: string) => {
   });
   const accessToken = jwtHelper.generateToken(
     { email: user.email, role: user.role },
-    "abcdef",
-    "15m"
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string
   );
 
   return {
