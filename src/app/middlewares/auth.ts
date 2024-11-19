@@ -3,6 +3,7 @@ import { jwtHelper } from "../../helpers/jwtHelper";
 import config from "../../config";
 import { Secret } from "jsonwebtoken";
 import httpStatus from "http-status";
+import { AppError } from "../errors/AppError";
 
 const auth = (...roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
