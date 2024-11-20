@@ -1,4 +1,5 @@
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
+import { IUser } from "../app/modules/User/user.interface";
 
 const generateToken = (
   payload: Record<string, unknown>,
@@ -12,7 +13,7 @@ const generateToken = (
 };
 
 const verifyToken = (token: string, secret: Secret) => {
-  return jwt.verify(token, secret) as JwtPayload;
+  return jwt.verify(token, secret) as IUser;
 };
 
 export const jwtHelper = {

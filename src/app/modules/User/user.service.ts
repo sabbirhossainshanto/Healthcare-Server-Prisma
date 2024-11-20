@@ -14,7 +14,9 @@ import { paginationHelper } from "../../../helpers/paginationHelper";
 import { userSearchableFields } from "./user.constant";
 import httpStatus from "http-status";
 import { AppError } from "../../errors/AppError";
+import { IUser } from "./user.interface";
 
+/* Create Admin  */
 const createAdmin = async (file: IFile, payload: Admin, password: string) => {
   if (file) {
     const { secure_url } = await fileUploader.uploadToCloudinary(file);
